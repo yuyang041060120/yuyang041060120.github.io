@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Angular2</title>
+</head>
+<body>
+
+<my-component>
+    loading...
+</my-component>
+
+<script src="node_modules/systemjs/dist/system.js"></script>
+<script src="node_modules/typescript/lib/typescript.js"></script>
+
+<script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+<script src="node_modules/rxjs/bundles/Rx.js"></script>
+<script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+<script>
+    System.config({
+        transpiler: 'typescript',
+        typescriptOptions: { emitDecoratorMetadata: true },
+        packages: {
+            hello_world: {
+                defaultExtension: 'ts'
+            }
+        }
+    });
+    System.import('hello_world/bootstrap')
+            .then(null, console.error.bind(console));
+</script>
+</body>
+</html>
