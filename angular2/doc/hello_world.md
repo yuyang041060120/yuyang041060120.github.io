@@ -90,4 +90,4 @@ angular2依赖于微软开发的typescript语言，typescript是js的超集，�
 # 小结
 整体来说启动一个angular2的程序还是比较繁琐的，特别是和typescript结合，增加了额外的学习成本。
 
-[实例代码参考](https://github.com/yuyang041060120/yuyang041060120.github.io/tree/master/angular2/code)
+[示例例代码参考](https://github.com/yuyang041060120/yuyang041060120.github.io/tree/master/angular2/code)

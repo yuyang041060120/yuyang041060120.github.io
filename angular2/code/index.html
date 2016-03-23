@@ -6,9 +6,9 @@
 </head>
 <body>
 
-<my-component>
+<my-app>
     loading...
-</my-component>
+</my-app>
 
 <script src="node_modules/systemjs/dist/system.js"></script>
 <script src="node_modules/typescript/lib/typescript.js"></script>
@@ -21,12 +21,12 @@
         transpiler: 'typescript',
         typescriptOptions: { emitDecoratorMetadata: true },
         packages: {
-            hello_world: {
+            simple_component: {
                 defaultExtension: 'ts'
             }
         }
     });
-    System.import('hello_world/bootstrap')
+    System.import('simple_component/bootstrap')
             .then(null, console.error.bind(console));
 </script>
 </body>
