@@ -114,4 +114,4 @@ export class AppComponent {
 <div>{{title}}</div>
 ```
 
-[示例例代码参考](https://github.com/yuyang041060120/yuyang041060120.github.io/tree/master/angular2/code)
+[示例代码参考](https://github.com/yuyang041060120/yuyang041060120.github.io/tree/master/angular2/code)
