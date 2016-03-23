@@ -1,9 +1,9 @@
 # 数据展示
 通过展示一组学生数据，来更好的理解组件，如果你还不清楚组件是什么，请参考[Simple Component](simple_component.md)
 
-首先定义一组学生数据，有id和姓名，然后定义我们的组件，包含一个标题和学生的集合
-
 *app.ts*
+
+首先定义一组学生数据，有id和姓名，然后定义我们的组件，包含一个标题和学生的集合
 
     var students = [
         {
@@ -41,6 +41,7 @@
     }
 
 *app.html*
+
 在组件模板中添加我们的渲染逻辑
 
     <h3>{{title}}</h3>
@@ -53,9 +54,10 @@
 ## ngFor
 ngFor是angular2内置的指令，用来循环列表数据，通过**#**的方式来声明一个变量，很明显stu用来接收单个循环的数据，i用来获取循环的index
 
-> 千万不要忘了ngFor前面的*****号
+> 千万不要忘了ngFor前面的*号
 
 *bootstrap.ts*
+
 初始化完成后，需要启动我们的应用程序
 
     import {bootstrap}    from 'angular2/platform/browser';
@@ -64,6 +66,7 @@ ngFor是angular2内置的指令，用来循环列表数据，通过**#**的方�
     bootstrap(AppComponent);
 
 *index.html*
+
 在HTML中调用组件
 
     <body>
@@ -99,6 +102,7 @@ ngFor是angular2内置的指令，用来循环列表数据，通过**#**的方�
 Angular2的代码组织是以类为单位的，下面我们带着面向对象的思想对整个代码进行重构，尽量模拟真实的开发环境。
 
 *student.ts*
+
 首先我们将学生抽象一个类，有id和name两个属性
 
     export class Student {
@@ -107,6 +111,7 @@ Angular2的代码组织是以类为单位的，下面我们带着面向对象的
     }
 
 *students.json*
+
 学生的数据从服务端获取，我们可以新建一个json文件来模拟数据库
 
     [
@@ -125,6 +130,7 @@ Angular2的代码组织是以类为单位的，下面我们带着面向对象的
     ]
     
 *student.service.ts*
+
 对学生数据的操作封装成一个服务类
 
     export class StudentService{}
@@ -153,6 +159,7 @@ Angular2的代码组织是以类为单位的，下面我们带着面向对象的
 这里涉及到依赖注入的知识点，暂时我们可以不关注
 
 *app.ts*
+
 然后在组件初始化的时候调用服务获取数据
 
     import {Component}      from 'angular2/core';
@@ -177,4 +184,4 @@ Angular2的代码组织是以类为单位的，下面我们带着面向对象的
     }
 
 # 小结
-Angular2是以类为单位进行模块的划分，上述内容基本描述了从获取数据到渲染的整个流程。
+上述内容基本描述了从获取数据到渲染的整个流程。Angular2是以类为单位进行模块的划分，依赖注入帮我们管理类，无需我们手动new，Angular2的开发已经很接近Java了。
