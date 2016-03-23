@@ -185,3 +185,5 @@ Angular2的代码组织是以类为单位的，下面我们带着面向对象的
 
 # 小结
 上述内容基本描述了从获取数据到渲染的整个流程。Angular2是以类为单位进行模块的划分，依赖注入帮我们管理类，无需我们手动new，Angular2的开发已经很接近Java了。
+
+[示例代码参考](https://github.com/yuyang041060120/yuyang041060120.github.io/tree/master/angular2/code/displaying_data)
