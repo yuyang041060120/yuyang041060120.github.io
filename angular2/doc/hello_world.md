@@ -86,7 +86,7 @@ angular2依赖于微软开发的typescript语言，typescript是js的超集，�
     
     bootstrap(AppComponent);    
 
-最后在浏览器里打开index.html，看看最终效果
+最后在浏览器里打开index.html（注意是以服务器的形式打开），看看最终效果
 # 小结
 整体来说启动一个angular2的程序还是比较繁琐的，特别是和typescript结合，增加了额外的学习成本。
 

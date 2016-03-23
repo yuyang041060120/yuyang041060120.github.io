@@ -6,9 +6,7 @@
 </head>
 <body>
 
-<my-app>
-    loading...
-</my-app>
+<my-app>loading...</my-app>
 
 <script src="node_modules/systemjs/dist/system.js"></script>
 <script src="node_modules/typescript/lib/typescript.js"></script>
@@ -16,17 +14,18 @@
 <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
 <script src="node_modules/rxjs/bundles/Rx.js"></script>
 <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+<script src="node_modules/angular2/bundles/http.dev.js"></script>
 <script>
     System.config({
         transpiler: 'typescript',
-        typescriptOptions: { emitDecoratorMetadata: true },
+        typescriptOptions: {emitDecoratorMetadata: true},
         packages: {
-            simple_component: {
+            displaying_data: {
                 defaultExtension: 'ts'
             }
         }
     });
-    System.import('simple_component/bootstrap')
+    System.import('displaying_data/bootstrap')
             .then(null, console.error.bind(console));
 </script>
 </body>
