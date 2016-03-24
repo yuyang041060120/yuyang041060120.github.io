@@ -27,39 +27,41 @@ angular2依赖于微软开发的typescript语言，typescript是js的超集，�
 # 内容
 ### index.html
 
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Angular2</title>
-    </head>
-    <body>
-    
-    <my-component>
-        loading...
-    </my-component>
-    
-    <script src="node_modules/systemjs/dist/system.js"></script>
-    <script src="node_modules/typescript/lib/typescript.js"></script>
-    
-    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
-    <script src="node_modules/rxjs/bundles/Rx.js"></script>
-    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
-    <script>
-        System.config({
-            transpiler: 'typescript',
-            typescriptOptions: { emitDecoratorMetadata: true },
-            packages: {
-                hello_world: {
-                    defaultExtension: 'ts'
-                }
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Angular2</title>
+</head>
+<body>
+
+<my-component>
+    loading...
+</my-component>
+
+<script src="node_modules/systemjs/dist/system.js"></script>
+<script src="node_modules/typescript/lib/typescript.js"></script>
+
+<script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+<script src="node_modules/rxjs/bundles/Rx.js"></script>
+<script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+<script>
+    System.config({
+        transpiler: 'typescript',
+        typescriptOptions: { emitDecoratorMetadata: true },
+        packages: {
+            hello_world: {
+                defaultExtension: 'ts'
             }
-        });
-        System.import('hello_world/bootstrap')
-                .then(null, console.error.bind(console));
-    </script>
-    </body>
-    </html>
+        }
+    });
+    System.import('hello_world/bootstrap')
+            .then(null, console.error.bind(console));
+</script>
+</body>
+</html>
+```
 
 - systemjs是我们的模块管理库
 - typescript用来实时编译我们的ts文件
@@ -70,21 +72,25 @@ angular2依赖于微软开发的typescript语言，typescript是js的超集，�
 ### app.ts
 声明一个组件，注意selector和index.html里body标签下面的内容，试着删除index.html里的<my-component>看看控制台会不会报错
 
-    import {Component} from 'angular2/core';
-    
-    @Component({
-        selector:'my-component',
-        template:'<div>Hello World</div>'
-    })
-    export class AppComponent{}
-    
+```typescript
+import {Component} from 'angular2/core';
+
+@Component({
+    selector:'my-component',
+    template:'<div>Hello World</div>'
+})
+export class AppComponent{}
+```
+
 ### bootstrap.ts
 启动项，在index.html里System.import('hello_world/bootstrap')可以看到
 
-    import {bootstrap}    from 'angular2/platform/browser';
-    import {AppComponent} from './app';
-    
-    bootstrap(AppComponent);    
+```typescript
+import {bootstrap}    from 'angular2/platform/browser';
+import {AppComponent} from './app';
+
+bootstrap(AppComponent);    
+```
 
 最后在浏览器里打开index.html（注意是以服务器的形式打开），看看最终效果
 # 小结

@@ -6,13 +6,13 @@ Decorator是ES6的新特性，可以用来修改类的行为，使用Decorator�
 
 *app.ts*
 
-```
+```typescript
 import {Component} from 'angular2/core';
 ```
 
 然后来声明我们的组件
 
-```
+```typescript
 @Component({
     selector:'my-app',
     template:'<div>{{title}}</div>'
@@ -25,13 +25,13 @@ export class AppComponent{
 #### selector
 组件声明，让我们在HTML当中可以使用我们的组件，例如
 
-```
+```html
 <my-app></my-app>
 ```
 
 > 不同于Angular1，Angular2的组件和指令是两个不同的概念，所以不能这样使用组件
 
-```
+```html
 <div my-app></div>
 ```
 
@@ -41,7 +41,7 @@ export class AppComponent{
 #### Class AppComponent
 上面说过了Decorator可以用来修饰类，所以@Component({...})主要是来修饰我们类AppComponent，将它声明成一个Component Class，类的内部定义了一个title属性
 
-```
+```typescript
 title:string = 'App Component';
 ```
 
@@ -52,7 +52,7 @@ title:string = 'App Component';
 
 *bootstrap.ts*
 
-```
+```typescript
 import {bootstrap}    from 'angular2/platform/browser';
 import {AppComponent} from './app';
 
@@ -63,7 +63,7 @@ bootstrap(AppComponent);
 
 *index.html*
 
-```
+```html
 <body>
 
 <my-app>
@@ -96,7 +96,7 @@ bootstrap(AppComponent);
 
 *app.ts*
 
-```
+```typescript
 import {Component} from 'angular2/core';
 
 @Component({
@@ -110,7 +110,7 @@ export class AppComponent {
 
 *app.html*
 
-```
+```html
 <div>{{title}}</div>
 ```
 
