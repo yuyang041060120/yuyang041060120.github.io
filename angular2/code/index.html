@@ -3,15 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Angular2</title>
-    <style>
-        div {
-            background-color: green;
-        }
-    </style>
 </head>
 <body>
-<div>Global Div</div>
-<p>Global P</p>
 <my-app>loading...</my-app>
 
 <script src="node_modules/systemjs/dist/system.js"></script>
@@ -26,12 +19,12 @@
         transpiler: 'typescript',
         typescriptOptions: {emitDecoratorMetadata: true},
         packages: {
-            component_styles: {
+            component_interactive: {
                 defaultExtension: 'ts'
             }
         }
     });
-    System.import('component_styles/bootstrap')
+    System.import('component_interactive/bootstrap')
             .then(null, console.error.bind(console));
 </script>
 </body>
