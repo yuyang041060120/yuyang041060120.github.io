@@ -39,7 +39,7 @@ export class AppComponent {
 ```html
 <div [style.backgroundColor]="{{backgroundColor}}">App Component</div>
 ```
-> 像这种用[]进行的绑定的值就是变量，不需要使用表达式
+> 像这种用[]进行的绑定的值就是表达式
 
 ### event binding
 通过(event)加事件名称的写法就是事件绑定，需要注意的右边方法需要写成执行的形式，千万不要写成如下形式
