@@ -29,7 +29,7 @@ export class AppComponent{
 <my-app></my-app>
 ```
 
-> 不同于Angular1，Angular2的组件和指令是两个不同的概念，所以不能这样使用组件
+> 不同于Angular1，所以不能这样使用组件
 
 ```html
 <div my-app></div>

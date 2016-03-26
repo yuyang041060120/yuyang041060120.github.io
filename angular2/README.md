@@ -4,3 +4,4 @@
 ### [Component Styles](doc/component_styles.md)
 ### [Component Interactive](doc/component_interactive.md)
 ### [Binding Syntax](doc/binding_syntax.md)
+### [Component Nested](doc/component_nested.md)
