@@ -19,7 +19,7 @@ export class AppComponent {
 }
 ```
 
-我们现在将content分离出另组件，可以复用它，展示不同的内容，新建一个content.ts
+我们现在将content分离出另一个组件，可以复用它，展示不同的内容，新建一个content.ts
 
 *content.ts*
 
@@ -37,7 +37,7 @@ export class ContentComponent {
 }
 ```
 
-然后app组件里里使用content组件
+然后app组件里使用content组件
 
 *app.ts*
 
@@ -53,6 +53,9 @@ export class AppComponent {
     title:string = 'App Component';    
 }
 ```
+
+> 组件也是指令的一种，只不过比较特殊
+
 
 是不是这样就可以了呢？不行！我得告诉app组件content-component是一个组件而不是一个没有意义的字符串，这里就需要使用到组件的另一个属性directives
 
@@ -126,8 +129,6 @@ export class AppComponent {
 }
 ```
 
-> 组件也是指令的一种，只不过比较特殊
-
 我们给app添加个按钮来切换内容，会更明显一点
 
 ![alt](images/component_nested/2.gif)
@@ -178,7 +179,7 @@ export class ContentComponent {
 }
 ```
 
-> 参数名称得和组件调用处的属性名称一致
+> @Input参数名称得和组件调用处的属性名称一致
 
 ## 输出
 ### outputs
