@@ -19,12 +19,12 @@
         transpiler: 'typescript',
         typescriptOptions: {emitDecoratorMetadata: true},
         packages: {
-            component_nested: {
+            contentchild_and_viewchild: {
                 defaultExtension: 'ts'
             }
         }
     });
-    System.import('component_nested/bootstrap')
+    System.import('contentchild_and_viewchild/bootstrap')
             .then(null, console.error.bind(console));
 </script>
 </body>

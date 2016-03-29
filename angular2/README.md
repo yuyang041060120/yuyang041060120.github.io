@@ -5,3 +5,4 @@
 ### [Component Interactive](doc/component_interactive.md)
 ### [Binding Syntax](doc/binding_syntax.md)
 ### [Component Nested](doc/component_nested.md)
+### [ContentChild And ViewChild](doc/contentchild_and_viewchild.md)
