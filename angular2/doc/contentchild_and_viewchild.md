@@ -85,7 +85,7 @@ export class AppComponent {
 }
 ```
 
-最后渲染的结构是这样的，ngContent被直接替换成了<parent>之间的内容
+最后渲染的结构是这样的，ngContent被直接替换成了parent标签之间的内容
 
 ![alt](images/contentchild_and_viewchild/3.png)
 
@@ -311,7 +311,7 @@ export class ParentComponent implements AfterViewInit {
 > 需要区分ContentChid和ViewChild
 
 - ContentChild是组件标签闭合之间的子组件
-- ViewChild是组件template当中的子组件
+- ViewChild是组件模板当中的子组件
 - 两者都有复数形式，ContentChildren和ViewChildren
 
 > 什么时候获取到子组件的值
@@ -342,7 +342,7 @@ export class ParentComponent implements AfterViewInit {
 <tabs [contens]="[...]"></tabs>
 ```
 
-把tab的内容都当参数去传递，这样组件的可读性就会很差，不利于维护，要实现类似第一种层次清晰的结构，很明显要使用到ContentChildren的装饰器去获取子组件，下面查完完整的编码
+把tab的内容都当参数去传递，这样组件的可读性就会很差，不利于维护，要实现类似第一种层次清晰的结构，很明显要使用到ContentChildren的装饰器去获取子组件，下面查看完整的编码
 
 *tab.ts*
 
@@ -375,7 +375,9 @@ import {TabComponent} from './tab';
     selector: 'tabs',
     template: `
        <ul class="tab-list">
-           <li *ngFor="#tab of tabs" [class.active]="selectedTab===tab" (click)="onSelect(tab)">{{tab.tabTitle}}</li>
+           <li *ngFor="#tab of tabs" 
+				[class.active]="selectedTab===tab" 
+				(click)="onSelect(tab)">{{tab.tabTitle}}</li>
        </ul>
        <ng-content></ng-content>
     `,
