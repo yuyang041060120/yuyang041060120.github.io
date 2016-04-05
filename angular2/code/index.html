@@ -19,12 +19,12 @@
         transpiler: 'typescript',
         typescriptOptions: {emitDecoratorMetadata: true},
         packages: {
-            contentchild_and_viewchild: {
+            dependency_injection: {
                 defaultExtension: 'ts'
             }
         }
     });
-    System.import('contentchild_and_viewchild/bootstrap')
+    System.import('dependency_injection/bootstrap')
             .then(null, console.error.bind(console));
 </script>
 </body>
