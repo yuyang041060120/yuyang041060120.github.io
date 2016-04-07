@@ -1,3 +1,4 @@
+# My Blog
 ### [Hello World](doc/hello_world.md)
 ### [Simple Component](doc/simple_component.md)
 ### [Displaying Data](doc/displaying_data.md)
@@ -7,3 +8,8 @@
 ### [Component Nested](doc/component_nested.md)
 ### [ContentChild And ViewChild](doc/contentchild_and_viewchild.md)
 ### [Dependency Injection](doc/dependency_injection.md)
+# Resource
+### [The Ultimate Guide to Forms in Angular 2](http://blog.ng-book.com/the-ultimate-guide-to-forms-in-angular-2/)
+### [Dependency Injection in Angular 2](http://blog.thoughtram.io/angular/2015/05/18/dependency-injection-in-angular-2.html)
+### [ViewChildren and ContentChildren in Angular 2](http://blog.mgechev.com/2016/01/23/angular2-viewchildren-contentchildren-difference-viewproviders/)
+### [Angular 2 Style Guide](https://github.com/mgechev/angular2-style-guide)
