@@ -1,3 +1,10 @@
+---
+layout:     post
+title:      "Angular2 ContentChild And ViewChild"
+date:       2016-03-30 21:00:00 GMT+8
+author:     "YanYang Yu"
+header-img: "img/angular2-contentchild-and-viewchild/bg.jpg"
+---
 # ngContent
 ngContent是Angular2的内置指令，作用类似于Angular1的ngTransclude，可以获取组件使用处标签包含的内容。例如我们App组件，默认内容是这样的
 
@@ -7,9 +14,7 @@ ngContent是Angular2的内置指令，作用类似于Angular1的ngTransclude，�
 
 如果没有使用ngContent，Angular2会直接将标签包含的内容替换成渲染后的模板，例如
 
-*app.ts*
-
-```typescript
+```javascript
 import {Component} from 'angular2/core';
 
 @Component({
@@ -24,13 +29,13 @@ export class AppComponent {
 
 渲染后的页面
 
-![alt](images/contentchild_and_viewchild/1.png)
+![alt](/img/angular2-contentchild-and-viewchild/1.png)
 
 如果我们想保留my-app之间的内容怎么办？这时候我们可以使用ngContent指令
 
 *app.ts*
 
-```typescript
+```javascript
 import {Component} from 'angular2/core';
 
 @Component({
@@ -44,16 +49,17 @@ export class AppComponent {
 }
 ```
 
-![alt](images/contentchild_and_viewchild/2.png)
+![alt](/img/angular2-contentchild-and-viewchild/2.png)
 
 报错了，这是为什么呢？
+
 > 这是Angular2的安全策略，入口组件不可以使用ngContent、输入输出等可以和外部交互的功能
 
 我们重新新建一个组件，来试验ngContent指令
 
 *parent.ts*
 
-```typescript
+```javascript
 import {Component} from 'angular2/core';
 
 @Component({
@@ -69,7 +75,7 @@ export class ParentComponent {
 
 *app.ts*
 
-```typescript
+```javascript
 import {Component}       from 'angular2/core';
 import {ParentComponent} from './parent';
 
@@ -87,7 +93,7 @@ export class AppComponent {
 
 最后渲染的结构是这样的，ngContent被直接替换成了parent标签之间的内容
 
-![alt](images/contentchild_and_viewchild/3.png)
+![alt](/img/angular2-contentchild-and-viewchild/3.png)
 
 ngContent支持select属性，值是css选择器的语法，例如
 
@@ -109,7 +115,7 @@ ngContent支持select属性，值是css选择器的语法，例如
 
 渲染的结构为
 
-![alt](images/contentchild_and_viewchild/4.png)
+![alt](/img/angular2-contentchild-and-viewchild/4.png)
 
 > 不支持id选择器，相同的选择器只会保留一处，不会重复渲染
 
@@ -118,7 +124,7 @@ ngContent支持select属性，值是css选择器的语法，例如
 
 *child.ts*
 
-```typescript
+```javascript
 import {Component} from 'angular2/core';
 
 @Component({
@@ -134,7 +140,7 @@ export class ChildComponent {
 
 *parent.ts*
 
-```typescript
+```javascript
 import {Component,ContentChild} from 'angular2/core';
 import {ChildComponent}         from './child';
 
@@ -143,7 +149,7 @@ import {ChildComponent}         from './child';
     template: `
         <div>Parent Component</div>
         <ng-content></ng-content>
-        <p>{{child.name}}</p>
+        <p>{% raw %}{{child.name}}{% endraw %}</p>
     `
 })
 export class ParentComponent {
@@ -154,7 +160,7 @@ export class ParentComponent {
 
 *app.ts*
 
-```typescript
+```javascript
 import {Component}       from 'angular2/core';
 import {ParentComponent} from './parent';
 import {ChildComponent}  from './child';
@@ -175,13 +181,13 @@ export class AppComponent {
 
 最终页面效果
 
-![alt](images/contentchild_and_viewchild/5.png)
+![alt](/img/angular2-contentchild-and-viewchild/5.png)
 
 ContentChildren可以获取多个子组件，例如
 
 *child.ts*
 
-```typescript
+```javascript
 import {Component} from 'angular2/core';
 
 @Component({
@@ -197,7 +203,7 @@ export class ChildComponent {
 
 *parent.ts*
 
-```typescript
+```javascript
 import {Component,ContentChildren,QueryList,AfterContentInit} from 'angular2/core';
 import {ChildComponent} from './child';
 
@@ -205,7 +211,7 @@ import {ChildComponent} from './child';
     selector: 'my-parent',
     template: `
         <div>Parent Component</div>
-        <p *ngFor="#child of childs;#i=index">{{child.name}}-{{i}}</p>
+        <p *ngFor="#child of childs;#i=index">{% raw %}{{child.name}}{% endraw %}-{% raw %}{{i}}{% endraw %}</p>
     `
 })
 export class ParentComponent implements AfterContentInit{
@@ -221,7 +227,7 @@ export class ParentComponent implements AfterContentInit{
 
 *app.ts*
 
-```typescript
+```javascript
 import {Component}       from 'angular2/core';
 import {ParentComponent} from './parent';
 import {ChildComponent}  from './child';
@@ -246,7 +252,7 @@ export class AppComponent {
 
 *child.ts*
 
-```typescript
+```javascript
 import {Component} from 'angular2/core';
 
 @Component({
@@ -262,7 +268,7 @@ export class ChildComponent {
 
 *parent.ts*
 
-```typescript
+```javascript
 import {Component,ViewChild,AfterViewInit} from 'angular2/core';
 import {ChildComponent}         from './child';
 
@@ -285,7 +291,7 @@ export class ParentComponent implements AfterViewInit{
 ```
 ViewChildren可以获取多个子组件，例如
 
-```typescript
+```javascript
 import {Component,ViewChildren,AfterViewInit,QueryList} from 'angular2/core';
 import {ChildComponent}         from './child';
 
@@ -308,9 +314,9 @@ export class ParentComponent implements AfterViewInit {
 }
 ```
 
-> 需要区分ContentChid和ViewChild
+> 需要区分ContentChild和ViewChild
 
-- ContentChild是组件标签闭合之间的子组件
+- ContentChild是组件selector标签闭合之间的子组件
 - ViewChild是组件模板当中的子组件
 - 两者都有复数形式，ContentChildren和ViewChildren
 
@@ -320,7 +326,7 @@ export class ParentComponent implements AfterViewInit {
 - ViewChild在父组件生命周期函数ngAfterViewInit之后可以获取到
 
 # tab小插件
-一般来说我们的tab插件结构应该是这样的，层次清晰明了
+实现一个简单的tab插件，巩固下。一般来说我们的tab插件结构应该是这样的，层次清晰明了
 
 ```html
 <tabs>
@@ -346,7 +352,7 @@ export class ParentComponent implements AfterViewInit {
 
 *tab.ts*
 
-```typescript
+```javascript
 import {Component,Input} from 'angular2/core';
 
 @Component({
@@ -367,7 +373,7 @@ export class TabComponent {
 
 *tabs.ts*
 
-```typescript
+```javascript
 import {Component,ContentChildren,QueryList,AfterContentInit} from 'angular2/core';
 import {TabComponent} from './tab';
 
@@ -375,9 +381,9 @@ import {TabComponent} from './tab';
     selector: 'tabs',
     template: `
        <ul class="tab-list">
-           <li *ngFor="#tab of tabs" 
-				[class.active]="selectedTab===tab" 
-				(click)="onSelect(tab)">{{tab.tabTitle}}</li>
+           <li *ngFor="#tab of tabs" [class.active]="selectedTab===tab" (click)="onSelect(tab)">
+               {% raw %}{{tab.tabTitle}}{% endraw %}
+           </li>
        </ul>
        <ng-content></ng-content>
     `,
@@ -430,7 +436,7 @@ export class TabsComponent implements AfterContentInit {
 
 *app.ts*
 
-```typescript
+```javascript
 import {Component,ContentChildren,QueryList} from 'angular2/core';
 import {TabsComponent} from './tabs';
 import {TabComponent} from './tab';
@@ -457,6 +463,4 @@ export class AppComponent {
 }
 ```
 
-![alt](images/contentchild_and_viewchild/6.gif)
-
-[示例代码参考](https://github.com/yuyang041060120/yuyang041060120.github.io/tree/master/angular2/code/contentchild_and_viewchild)
+![alt](/img/angular2-contentchild-and-viewchild/6.gif)
