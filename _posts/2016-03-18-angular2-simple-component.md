@@ -98,11 +98,7 @@ bootstrap(AppComponent);
 在index.html当中引入需要的类库，然后再body当中调用我们的组件
 
 ```html
-<body>
-
 <my-app>loading...</my-app>
-
-...include script
 ```
 
 打开浏览器查看效果
@@ -110,7 +106,7 @@ bootstrap(AppComponent);
 # templateUrl
 真实开发的环境中，模板的内容都是大量的，放在js当中不利于阅读和维护，我们可以使用templateUrl属性，将模板剥离成单独的HTML文件
 
-```typescript
+```javascript
 import {Component} from 'angular2/core';
 
 @Component({
