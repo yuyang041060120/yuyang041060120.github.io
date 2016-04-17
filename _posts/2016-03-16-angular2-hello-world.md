@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Angular2 Hello World"
-date:       2016-03-16 21:00:00
+date:       2016-03-16 21:00:00 GMT+8
 author:     "YanYang Yu"
 header-img: "img/angular2-bg.png"
 ---
@@ -82,7 +82,7 @@ angular2拥抱了微软开发的typescript语言，typescript是js的超集，�
 import {Component} from 'angular2/core';
 
 @Component({
-    selector:'my-component',
+    selector:'my-app',
     template:'<div>Hello World</div>'
 })
 export class AppComponent{}

@@ -1,4 +1,141 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.1.2">Jekyll</generator><link href="http://yourdomain.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://yourdomain.com/" rel="alternate" type="text/html"/><updated>2016-04-17T12:00:31+08:00</updated><id>http://yourdomain.com/</id><title>yuyangyang Blog</title><subtitle>yuyangyang blog,share my experiences and thoughts with all</subtitle><entry><title>Angular2 Hello World</title><link href="http://yourdomain.com/2016/03/17/angular2-hello-world/" rel="alternate" type="text/html" title="Angular2 Hello World" /><published>2016-03-17T05:00:00+08:00</published><updated>2016-03-17T05:00:00+08:00</updated><id>http://yourdomain.com/2016/03/17/angular2-hello-world</id><content type="html" xml:base="http://yourdomain.com/2016/03/17/angular2-hello-world/">&lt;h1 id=&quot;section&quot;&gt;安装&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.1.2">Jekyll</generator><link href="http://yourdomain.com/feed.xml" rel="self" type="application/atom+xml" /><link href="http://yourdomain.com/" rel="alternate" type="text/html"/><updated>2016-04-17T14:59:15+08:00</updated><id>http://yourdomain.com/</id><title>yuyangyang blog</title><subtitle>yuyangyang blog,share my experiences and thoughts with all</subtitle><entry><title>Angular2 Simple Component</title><link href="http://yourdomain.com/2016/03/18/angular2-simple_component/" rel="alternate" type="text/html" title="Angular2 Simple Component" /><published>2016-03-18T21:00:00+08:00</published><updated>2016-03-18T21:00:00+08:00</updated><id>http://yourdomain.com/2016/03/18/angular2-simple_component</id><content type="html" xml:base="http://yourdomain.com/2016/03/18/angular2-simple_component/">&lt;h1 id=&quot;section&quot;&gt;组件&lt;/h1&gt;
+&lt;p&gt;Web Component是未来web开发的趋势，在Angular2的开发当中，我们大部分的时间都是在编写组件,下面来实现一个简单的组件，目录结构如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;src
+    &lt;ul&gt;
+      &lt;li&gt;app.ts&lt;/li&gt;
+      &lt;li&gt;app.html&lt;/li&gt;
+      &lt;li&gt;boot.ts&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;node_modules&lt;/li&gt;
+  &lt;li&gt;index.html&lt;/li&gt;
+  &lt;li&gt;package.json&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如何搭建Angular2的开发环境，可参考&lt;a href=&quot;/2016/03/16/angular2-hello-world/&quot;&gt;Angular2 Hello World&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h1 id=&quot;component&quot;&gt;@Component&lt;/h1&gt;
+&lt;p&gt;在Angular1的程序当中，我们想要使用controller，得通过这样的方式声明&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;angular&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;myApp&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[])&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;MainCtrl&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;$scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//todo&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;同样的，如果我们想要在Angular2中使用组件首先需要声明一个组件，Angular2采用了&lt;code class=&quot;highlighter-rouge&quot;&gt;@Component&lt;/code&gt;的方式声明组件，深入了解你会发现Angular2的绝大部分功能都是通过Decorator声明的，&lt;code class=&quot;highlighter-rouge&quot;&gt;@&lt;/code&gt;装饰器是ES7的新特性，可以用来修改类及其方法的行为。typescript支持大部分的ES6/7特性，例如import和export，基本的内容请自行学习。
+首先引入Component&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;angular2/core&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;然后来声明我们的组件&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;my-app&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;&amp;lt;div&amp;gt;{{title}}&amp;lt;/div&amp;gt;&#39;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;App Component&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;selector&quot;&gt;selector&lt;/h2&gt;
+&lt;p&gt;声明的组件调用方式，让我们在HTML当中可以使用我们的组件，例如&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;my-app&amp;gt;&amp;lt;/my-app&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;不同于Angular1，组件不能这样使用&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;my-app&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;template&quot;&gt;template&lt;/h2&gt;
+&lt;p&gt;模板字符串，渲染到浏览器当中的真实HTML结构&lt;/p&gt;
+
+&lt;h2 id=&quot;class-appcomponent&quot;&gt;class AppComponent&lt;/h2&gt;
+&lt;p&gt;我们要明白代码的主体是类&lt;code class=&quot;highlighter-rouge&quot;&gt;AppComponent&lt;/code&gt;，而不是@Component，@Component只是一种单纯的声明方式，告诉Angular2类AppComponent是一个组件了。新手有时候还会犯下面的错：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;my-app&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;&amp;lt;div&amp;gt;{{title}}&amp;lt;/div&amp;gt;&#39;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;App Component&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在@Component和class之间添加了&lt;code class=&quot;highlighter-rouge&quot;&gt;;&lt;/code&gt;，误以为@Component()是一个方法调用。&lt;/p&gt;
+
+&lt;h2 id=&quot;title&quot;&gt;{{title}}&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;App Component&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;我们在类AppComponent当中声明了一个属性title，我们可以在模板当中使用&lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;/code&gt;表达式，类似于Angular1当中的&lt;code class=&quot;highlighter-rouge&quot;&gt;$scope&lt;/code&gt;,这样就可以将组件的数据或者方法同模板的展示或交互关联起来。&lt;/p&gt;
+
+&lt;h1 id=&quot;bootstrap&quot;&gt;bootstrap&lt;/h1&gt;
+&lt;p&gt;声明完组件，让我们来初始化&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bootstrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;    &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;angular2/platform/browser&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;./app&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;bootstrap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在index.html当中引入需要的类库，然后再body当中调用我们的组件&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;body&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;my-app&amp;gt;&lt;/span&gt;loading...&lt;span class=&quot;nt&quot;&gt;&amp;lt;/my-app&amp;gt;&lt;/span&gt;
+
+...include script
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;打开浏览器查看效果&lt;/p&gt;
+
+&lt;h1 id=&quot;templateurl&quot;&gt;templateUrl&lt;/h1&gt;
+&lt;p&gt;真实开发的环境中，模板的内容都是大量的，放在js当中不利于阅读和维护，我们可以使用templateUrl属性，将模板剥离成单独的HTML文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-typescript&quot;&gt;import {Component} from &#39;angular2/core&#39;;
+
+@Component({
+    selector: &#39;my-app&#39;,
+    templateUrl: &#39;src/app.html&#39;
+})
+export class AppComponent {
+    title:string = &#39;App Component&#39;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;src/app.html&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&amp;gt;&lt;/span&gt;{{title}}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;小结&lt;/h1&gt;
+&lt;p&gt;通过上面的例子，我们大概知道Angular2的启动模式是这样的&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;通过@Component声明组件&lt;/li&gt;
+  &lt;li&gt;index.html当中调用组件的selector&lt;/li&gt;
+  &lt;li&gt;调用bootstrap初始化&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>YanYang Yu</name></author><summary>组件
+Web Component是未来web开发的趋势，在Angular2的开发当中，我们大部分的时间都是在编写组件,下面来实现一个简单的组件，目录结构如下：</summary></entry><entry><title>Angular2 Hello World</title><link href="http://yourdomain.com/2016/03/16/angular2-hello-world/" rel="alternate" type="text/html" title="Angular2 Hello World" /><published>2016-03-16T21:00:00+08:00</published><updated>2016-03-16T21:00:00+08:00</updated><id>http://yourdomain.com/2016/03/16/angular2-hello-world</id><content type="html" xml:base="http://yourdomain.com/2016/03/16/angular2-hello-world/">&lt;h1 id=&quot;section&quot;&gt;安装&lt;/h1&gt;
 
 &lt;h2 id=&quot;angular2httpsgithubcomangularangular&quot;&gt;&lt;a href=&quot;https://github.com/angular/angular&quot;&gt;angular2&lt;/a&gt;&lt;/h2&gt;
 
@@ -87,7 +224,7 @@
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kr&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;angular2/core&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;err&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Component&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;my-component&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;my-app&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;&amp;lt;div&amp;gt;Hello World&amp;lt;/div&amp;gt;&#39;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
 &lt;span class=&quot;kr&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AppComponent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
