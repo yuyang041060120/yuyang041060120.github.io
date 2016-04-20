@@ -22,7 +22,7 @@
 .highlight pre, pre, .highlight .hll { background-color: #f8f8f8; border: 1px solid #f1f1f1; padding: 6px 10px; border-radius: 3px; }
 .highlight .c { color: #999988; font-style: italic; }
 /*.highlight .err { color: #a61717; background-color: #e3d2d2; }*/
-.highlight .k { font-weight: bold; }
+.highlight .k { font-weight: bold; color: #268bd2}
 .highlight .o { font-weight: bold; }
 .highlight .cm { color: #999988; font-style: italic; }
 .highlight .cp { color: #999999; font-weight: bold; }
@@ -44,7 +44,7 @@
 .highlight .kd { font-weight: bold; }
 .highlight .kn { font-weight: bold; }
 .highlight .kp { font-weight: bold; }
-.highlight .kr { font-weight: bold; }
+.highlight .kr { font-weight: bold; color: #268bd2}
 .highlight .kt { color: #445588; font-weight: bold; }
 .highlight .m { color: #009999; }
 .highlight .s { color: #dd1144; }
