@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="yuyangyang blog,share my experiences and thoughts with all">
+
+    <title>Angular2 Pipes - yuyangyang blog</title>
+
+    <link href="/img/favicon.ico" rel="shortcut icon">
+
+    <link rel="canonical" href="http://yourdomain.com/2016/04/25/angular2-pipes/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link type="application/atom+xml" rel="alternate" href="http://yourdomain.com/feed.xml" title="yuyangyang blog" />
+
+</head>
+
+
+<body>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-62581241-3', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                
+				
+                <li>
+                    <a href="/about/">About</a>
+                </li>
+				
+                
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/img/angular2-pipes/bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Angular2 Pipes</h1>
+                    
+                    <span class="meta">Posted by YanYang Yu on April 25, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+				<h1 id="section">前言</h1>
+
+<p>如果经常使用Linux系统，那么你对管道的概念一定不会陌生，例如</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ps -ef|grep nginx
+</code></pre>
+</div>
+
+<p>通过<code class="highlighter-rouge">grep</code>可以将大量的输出加以过滤，只留下nginx的进程。
+我们可以将管道的概念比作我们现实中的下水管道，下水管道有不同口径的大小，例如500x500，只允许该大小之内的物体通过，这样就可以过滤我们的输出了。</p>
+
+<h1 id="angular1-filter">Angular1 Filter</h1>
+
+<p>在Angular1当中我们使用filter过滤我们的输出，例如实现一个Math.pow功能的过滤器</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'app'</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="s1">'pow'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">!==</span> <span class="s1">'number'</span><span class="p">)</span> <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+            <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">num</span> <span class="o">||</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+</code></pre>
+</div>
+
+<p>我们在template当中这样使用</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">ng-init=</span><span class="s">"number = 2"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>{{number | pow}}<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>{{number | pow:3}}<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>通过<code class="highlighter-rouge">:</code>的形式传递参数，也可以传递多个参数</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>data | filter:arg1:arg2
+</code></pre>
+</div>
+
+<p>filter还可以链式调用，例如给上述的输出结果添加一个单位</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'app'</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="s1">'unit'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">unit</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">value</span> <span class="o">+</span> <span class="p">(</span><span class="nx">unit</span> <span class="o">||</span> <span class="s1">'$'</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+</code></pre>
+</div>
+
+<p>在template当中使用</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">ng-init=</span><span class="s">"number = 2"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>{{number | pow | unit}}<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>{{number | pow:3 | unit:'￥'}}<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>如果没有filter的概念，那么我们可能用下面的方式处理我们的数据</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'app'</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="s1">'filter'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">pow</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">!==</span> <span class="s1">'number'</span><span class="p">)</span> <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+            <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">num</span> <span class="o">||</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="p">};</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">unit</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">unit</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">value</span> <span class="o">+</span> <span class="p">(</span><span class="nx">unit</span> <span class="o">||</span> <span class="s1">'$'</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">'MyCtrl'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">filter</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$scope</span><span class="p">.</span><span class="nx">number</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="nx">$scope</span><span class="p">.</span><span class="nx">numberPow</span> <span class="o">=</span> <span class="nx">filter</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">number</span><span class="p">);</span>
+        <span class="nx">$scope</span><span class="p">.</span><span class="nx">numberPowAndUnit</span> <span class="o">=</span> <span class="nx">filter</span><span class="p">.</span><span class="nx">unit</span><span class="p">(</span><span class="nx">$scope</span><span class="p">.</span><span class="nx">numberPow</span><span class="p">,</span> <span class="s1">'￥'</span><span class="p">);</span>
+    <span class="p">})</span>
+</code></pre>
+</div>
+
+<p>在template当中使用</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">ng-controller=</span><span class="s">"MyCtrl"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>{{number}}<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>{{numberPow}}<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>{{numberPowAndUnit}}<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre>
+</div>
+
+<p>service的逻辑比较清晰，团队可以约定这个service作为过滤器来使用，但是controller的逻辑就一团糟了，<code class="highlighter-rouge">numberPow</code>和<code class="highlighter-rouge">numberPowAndUnit</code>纯粹是为了展示而弄出来的字段，这样的代码不易阅读和维护。
+很明显，使用filter有这样几个好处：</p>
+
+<ul>
+  <li>代码易读</li>
+  <li>展示与逻辑分离</li>
+  <li>…</li>
+</ul>
+
+<h1 id="angular2-pipes">Angular2 Pipes</h1>
+
+<p>在Angular2中我们使用<code class="highlighter-rouge">@Pipe</code>装饰器声明我们的管道</p>
+
+<p><em>pow.ts</em></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span><span class="nx">Pipe</span><span class="p">,</span> <span class="nx">PipeTransform</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">'angular2/core'</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Pipe</span><span class="p">({</span>
+    <span class="na">name</span><span class="p">:</span> <span class="s1">'pow'</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">PowPipe</span> <span class="kr">implements</span> <span class="nx">PipeTransform</span> <span class="p">{</span>
+    <span class="nx">transform</span><span class="p">(</span><span class="nx">value</span><span class="err">:</span><span class="nx">any</span><span class="p">,</span> <span class="nx">args</span><span class="err">:</span><span class="nx">any</span><span class="p">[])</span><span class="err">:</span><span class="nx">any</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="o">!==</span> <span class="s1">'number'</span><span class="p">)</span> <span class="k">return</span> <span class="nx">value</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">||</span> <span class="mi">2</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>PipeTransform是一个接口，只有一个transform方法，结合Pipe一起使用。声明完了pow管道，来看看如何在组件<em>app.ts</em>当中使用</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span><span class="nx">Component</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">'angular2/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">PowPipe</span>     <span class="nx">from</span> <span class="s1">'./pow'</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+    <span class="na">selector</span><span class="p">:</span> <span class="s1">'my-app'</span><span class="p">,</span>
+    <span class="na">template</span><span class="p">:</span> <span class="err">`</span>
+        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">number</span> <span class="o">|</span> <span class="nx">pow</span><span class="p">}}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">number</span> <span class="o">|</span> <span class="na">pow</span><span class="p">:</span><span class="mi">3</span><span class="p">}}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>    <span class="err">`</span><span class="p">,</span>
+    <span class="na">pipes</span><span class="p">:</span> <span class="p">[</span><span class="nx">PowPipe</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+    <span class="nl">number</span><span class="p">:</span><span class="nx">number</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>通过<code class="highlighter-rouge">pipes</code>配置添加我们需要使用的管道，不同于<code class="highlighter-rouge">providers</code>，<strong>子组件无法使用父组件引入的管道</strong>。</p>
+
+<blockquote>
+  <p>Angular2的Pipes同样传递多个参数，同样可以链式调用，用法同Angular1一致</p>
+</blockquote>
+
+<h1 id="immutable-data">Immutable Data</h1>
+
+<p>我们先实现一个简单的数组求和管道<em>summary.ts</em></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span><span class="nx">Pipe</span><span class="p">,</span> <span class="nx">PipeTransform</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">'angular2/core'</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Pipe</span><span class="p">({</span>
+    <span class="na">name</span><span class="p">:</span> <span class="s1">'summary'</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">SummaryPipe</span> <span class="kr">implements</span> <span class="nx">PipeTransform</span> <span class="p">{</span>
+    <span class="nx">transform</span><span class="p">(</span><span class="nx">list</span><span class="err">:</span><span class="nx">number</span><span class="p">[],</span> <span class="nx">args</span><span class="err">:</span><span class="nx">any</span><span class="p">[])</span><span class="err">:</span><span class="nx">any</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">list</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">prev</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">prev</span> <span class="o">+</span> <span class="nx">next</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>入口组件<em>app.ts</em></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span><span class="nx">Component</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">'angular2/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">SummaryPipe</span> <span class="nx">from</span> <span class="s1">'./summary'</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+    <span class="na">selector</span><span class="p">:</span> <span class="s1">'my-app'</span><span class="p">,</span>
+    <span class="na">template</span><span class="p">:</span> <span class="err">`</span>
+        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="nx">span</span> <span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">"#i of list"</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">i</span><span class="p">}}</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&lt;</span><span class="sr">/span&gt;&lt;/</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">list</span> <span class="o">|</span> <span class="nx">summary</span><span class="p">}}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">button</span> <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">"onClick()"</span><span class="o">&gt;</span><span class="nx">add</span> <span class="mi">4</span><span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>    <span class="err">`</span><span class="p">,</span>
+    <span class="na">pipes</span><span class="p">:</span> <span class="p">[</span><span class="nx">SummaryPipe</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+    <span class="nl">list</span><span class="p">:</span><span class="nx">number</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+
+    <span class="nx">onClick</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>功能很简单，当程序完成后，我们看到的页面这样的</p>
+
+<p><img src="/img/angular2-pipes/1.jpg" alt="alt" /></p>
+
+<p>然后我们点击<strong>add 4</strong>按钮，发现展示的列表更新了，但是求和的结果没有变化，这是为什么？
+不同于UI更新的机制，使用Pipe的时候，只有对象的引用变化了，才会执行Pipe的逻辑，我们将<em>app.ts</em>的onClick方法改造下</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="nx">onClick</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">list</span> <span class="o">=</span> <span class="p">[...</span><span class="k">this</span><span class="p">.</span><span class="nx">list</span><span class="p">,</span> <span class="mi">4</span><span class="p">];</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>这个时候点击按钮，UI更新正常了。
+为什么Angular2的管道不对数据进行深层次的检测，而是采用判断引用是否变化这样的方式呢？
+我们要明白，在不清楚哪个节点的数据变化情况下，就需要对整个对象进行递归检测，代价是十分昂贵的。
+那问题又来了，如果某个深层次的数据结构变化了，如何层层的改变引用呢？浅拷贝、深拷贝？No!No!No!
+Immutable Data是指一经创建就不可改变的的数据结构，例如上面的例子当中的list，创建完后我们不应该再去修改它，我们可以结合如<a href="https://facebook.github.io/immutable-js/">immutablejs</a>这样的库去使用。
+经过immutablejs处理过的数据都是一个新的引用。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span><span class="nx">Component</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">'angular2/core'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">SummaryPipe</span> <span class="nx">from</span> <span class="s1">'./summary'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">Immutable</span>   <span class="nx">from</span> <span class="s1">'immutable'</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+    <span class="na">selector</span><span class="p">:</span> <span class="s1">'my-app'</span><span class="p">,</span>
+    <span class="na">template</span><span class="p">:</span> <span class="err">`</span>
+        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;&lt;</span><span class="nx">span</span> <span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">"#i of list"</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">i</span><span class="p">}}</span><span class="o">&amp;</span><span class="nx">nbsp</span><span class="p">;</span><span class="o">&lt;</span><span class="sr">/span&gt;&lt;/</span><span class="nx">div</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">list</span> <span class="o">|</span> <span class="nx">summary</span><span class="p">}}</span><span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>        <span class="o">&lt;</span><span class="nx">button</span> <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">"onClick()"</span><span class="o">&gt;</span><span class="nx">add</span> <span class="mi">4</span><span class="o">&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span>    <span class="err">`</span><span class="p">,</span>
+    <span class="na">pipes</span><span class="p">:</span> <span class="p">[</span><span class="nx">SummaryPipe</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+    <span class="nl">list</span><span class="p">:</span><span class="nx">number</span><span class="p">[]</span> <span class="o">=</span> <span class="nx">Immutable</span><span class="p">.</span><span class="nx">List</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]);</span>
+
+    <span class="nx">onClick</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">list</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">list</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>更多关于Immutable Data的内容，大家自行搜索，这里不在赘述了。</p>
+
+<h1 id="impure-pipes">Impure Pipes</h1>
+
+<p>到目前为止，我们所有的管道或者filter都是直接return我们的处理结果的，如果我们的管道的处理需要依赖服务端返回的结果怎么办？
+我们可以将我们的Pipe声明成一个Impure Pipe</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="kr">import</span> <span class="p">{</span><span class="nx">Pipe</span><span class="p">,</span> <span class="nx">PipeTransform</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">'angular2/core'</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Pipe</span><span class="p">({</span>
+    <span class="na">name</span><span class="p">:</span> <span class="s1">'fetchString'</span><span class="p">,</span>
+    <span class="na">pure</span><span class="p">:</span> <span class="kc">false</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="k">default</span> <span class="kr">class</span> <span class="nx">FetchStringPipe</span> <span class="kr">implements</span> <span class="nx">PipeTransform</span> <span class="p">{</span>
+    <span class="nl">cache</span><span class="p">:</span><span class="nx">string</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="nl">fetched</span><span class="p">:</span><span class="kr">boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+    <span class="nx">transform</span><span class="p">(</span><span class="nx">value</span><span class="err">:</span><span class="nx">number</span><span class="p">[],</span> <span class="nx">args</span><span class="err">:</span><span class="nx">any</span><span class="p">[])</span><span class="err">:</span><span class="nx">any</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">fetched</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">fetched</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="nx">setTimeout</span><span class="p">(()</span><span class="o">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">cache</span> <span class="o">=</span> <span class="nx">value</span> <span class="o">+</span> <span class="s1">':from server'</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">cache</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+
+<p>将pure设为false，即创建了一个Impure Pipe，可以处理异步流程。
+如果你在transform方法当中添加一个<code class="highlighter-rouge">console.log('exec')</code>，你会发现控制台打印了好多次<code class="highlighter-rouge">exec</code>，甚至点击逻辑不相关的按钮也会触发。
+<strong>可能引起UI更新的操作，如与页面又交互，从服务端请求等都会导致Impure Pipe执行transform方法。</strong></p>
+
+<blockquote>
+  <p>使用Impure Pipe的时候要谨慎，一定要保持逻辑清晰。</p>
+</blockquote>
+
+<h1 id="section-1">小结</h1>
+
+<p>前端引入管道的概念真是很棒的想法。</p>
+
+
+                <hr>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2016/04/06/angular2-dependency-injection/" data-toggle="tooltip" data-placement="top" title="Angular2 Dependency Injection">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                <div id="disqus_thread"></div>
+                <script>
+                    /**
+                     * RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                     * LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+                     */
+                    /*
+                     var disqus_config = function () {
+                     this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+                     this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                     };
+                     */
+                    (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+
+                        s.src = '//yuyangyang.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+    <footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <li>
+                        <a href="https://twitter.com/yuyang041060120">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a href="https://github.com/yuyang041060120">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a href="mailto:yuyang041060120@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">Copyright &copy; YangYang Yu 2016</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="/js/jquery.min.js "></script>
+<script src="/js/bootstrap.min.js "></script>
+<script src="/js/clean-blog.min.js "></script>
+
+
+</body>
+
+</html>
