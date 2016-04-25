@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Angular2 Pipes"
-date:       2016-04-25 14:00:00 GMT+8
+date:       2016-04-24 21:00:00 GMT+8
 author:     "YanYang Yu"
 header-img: "img/angular2-pipes/bg.jpg"
 ---
