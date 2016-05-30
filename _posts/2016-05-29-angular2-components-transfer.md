@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      "Angular2 Components Transfer"
-date:       2016-05-30 10:00:00 GMT+8
+date:       2016-05-29 21:00:00 GMT+8
 author:     "YanYang Yu"
 header-img: "img/angular2-components-transfer/bg.jpg"
 ---
