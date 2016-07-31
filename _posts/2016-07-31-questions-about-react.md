@@ -256,7 +256,7 @@ render() {
 ```javascript
 render() {
   return (
-    <div style={{display: this.state.data ? 'block' : 'none'}}>
+    <div style={% raw %}{{display: this.state.data ? 'block' : 'none'}}{% endraw %}>
       <p>{this.state.data ? this.state.data.id : ''}</p>
       <p>{this.state.data ? this.state.data.name : ''}</p>
       <p>...</p>
