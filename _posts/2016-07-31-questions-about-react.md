@@ -1,10 +1,3 @@
----
-layout:     post
-title:      "React的几点疑问"
-date:       2116-07-31 12:00:00 GMT+8
-author:     "YanYang Yu"
-header-img: "img/questions-about-react/bg.jpg"
----
 
 # No Directive
 
